@@ -27,7 +27,6 @@ pipeline {
             steps {
                 echo 'compile HL feature/gc branch'
                 sh '''
-                cd hashlink
                 PREFIX=/opt/hashlink/hashlink.feature-gc make
                 '''
             }
@@ -37,7 +36,6 @@ pipeline {
             steps {
                 echo 'install HL feature/gc branch'
                 sh '''
-                cd hashlink
                 PREFIX=/opt/hashlink/hashlink.feature-gc make install
                 '''
             }
