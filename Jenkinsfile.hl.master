@@ -27,7 +27,7 @@ pipeline {
             steps {
                 echo 'compile HL master'
                 sh '''
-                PREFIX=/opt/hashlink/hashlink.master make
+                PREFIX=/home/tooling/hashlink/hashlink.master make
                 '''
             }
         }
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 echo 'install HL master'
                 sh '''
-                PREFIX=/opt/hashlink/hashlink.master make install
+                PREFIX=/home/tooling/hashlink/hashlink.master make install
                 '''
             }
         }
