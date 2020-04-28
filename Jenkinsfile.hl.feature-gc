@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+    options {
+        timeout(time: 1, unit: 'HOURS')
+        disableConcurrentBuilds()
+    }
+    triggers {
+        cron 'H * * * *'
+    }
+
+    stages {
+        stage('checkout') {
+            steps {
+                echo 'checkout HL feature/gc branch'
+                checkout([
+                    $class: 'GitSCM', 
+                    branches: [[name: '*/feature/gc']], 
+                    doGenerateSubmoduleConfigurations: false, 
+                    extensions: [], 
+                    submoduleCfg: [], 
+                    userRemoteConfigs: [[url: 'https://github.com/Aurel300/hashlink.git']]
+                ])                
+            }
+        }
+
+        stage('compile') {
+            steps {
+                echo 'compile HL feature/gc branch'
+                sh '''
+                cd hashlink
+                PREFIX=/opt/hashlink/hashlink.feature-gc make
+                '''
+            }
+        }
+
+        stage('install') {
+            steps {
+                echo 'install HL feature/gc branch'
+                sh '''
+                cd hashlink
+                PREFIX=/opt/hashlink/hashlink.feature-gc make install
+                '''
+            }
+        }
+    }
+}
