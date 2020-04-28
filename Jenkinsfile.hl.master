@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                echo 'checkout HL github'
+                echo 'checkout HL master'
                 checkout([
                     $class: 'GitSCM', 
                     branches: [[name: '*/master']], 
@@ -25,20 +25,20 @@ pipeline {
 
         stage('compile') {
             steps {
-                echo 'compile HL github'
+                echo 'compile HL master'
                 sh '''
                 cd hashlink
-                PREFIX=/opt/hashlink/hashlink.github make
+                PREFIX=/opt/hashlink/hashlink.master make
                 '''
             }
         }
 
         stage('install') {
             steps {
-                echo 'install HL github'
+                echo 'install HL master'
                 sh '''
                 cd hashlink
-                PREFIX=/opt/hashlink/hashlink.github make install
+                PREFIX=/opt/hashlink/hashlink.master make install
                 '''
             }
         }
