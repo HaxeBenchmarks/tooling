@@ -1,11 +1,11 @@
 pipeline {
     agent any
     options {
-        timeout(time: 1, unit: 'HOURS')
+        timeout(time: 10, unit: 'MINUTES')
         disableConcurrentBuilds()
     }
     triggers {
-        cron 'H * * * *'
+        cron 'H/6 * * * *'
     }
 
     stages {
