@@ -24,6 +24,7 @@ pipeline {
                     lix scope create
                     lix install haxe 3.4.7
                     lix dev hxcpp ..
+                    haxelib dev hxcpp ..
                     echo "y" | haxe compile-cppia.hxml
                 '''
             }
@@ -44,6 +45,7 @@ pipeline {
                     lix scope create
                     lix install haxe 4.0.5
                     lix dev hxcpp ..
+                    haxelib dev hxcpp ..
                     echo "y" | haxe compile-cppia.hxml
                 '''
             }
@@ -64,7 +66,8 @@ pipeline {
                     lix scope create
                     lix install haxe nightly
                     lix dev hxcpp ..
-                    echo "y" | haxe compile-cppia.hxml
+                    haxelib dev hxcpp ..
+                    echo "y" |  haxe compile-cppia.hxml
                 '''
             }
         }
