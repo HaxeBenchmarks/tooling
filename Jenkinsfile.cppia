@@ -15,7 +15,9 @@ pipeline {
                 sh '''
                     mkdir -p $TOOLING_BASE/hxcpp/hxcppHaxe3
                     cd $TOOLING_BASE/hxcpp/hxcppHaxe3
-                    git clone https://github.com/HaxeFoundation/hxcpp.git .
+                    # git clone https://github.com/HaxeFoundation/hxcpp.git .
+                    git checkout -- .
+                    git pull
                     rm -rf bin project/cppia_bin
 
                     cd project 
@@ -33,7 +35,9 @@ pipeline {
                 sh '''
                     mkdir -p $TOOLING_BASE/hxcpp/hxcppHaxe4
                     cd $TOOLING_BASE/hxcpp/hxcppHaxe4
-                    git clone https://github.com/HaxeFoundation/hxcpp.git .
+                    # git clone https://github.com/HaxeFoundation/hxcpp.git .
+                    git checkout -- .
+                    git pull
                     rm -rf bin project/cppia_bin
 
                     cd project 
@@ -51,7 +55,9 @@ pipeline {
                 sh '''
                     mkdir -p $TOOLING_BASE/hxcpp/hxcppHaxeNightly
                     cd $TOOLING_BASE/hxcpp/hxcppHaxeNightly
-                    git clone https://github.com/HaxeFoundation/hxcpp.git .
+                    # git clone https://github.com/HaxeFoundation/hxcpp.git .
+                    git checkout -- .
+                    git pull
                     rm -rf bin project/cppia_bin
 
                     cd project 
