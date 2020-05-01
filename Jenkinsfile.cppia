@@ -1,0 +1,66 @@
+pipeline {
+    agent any
+    options {
+        timeout(time: 6, unit: 'HOURS')
+        disableConcurrentBuilds()
+    }
+    triggers {
+        cron 'H * * * *'
+    }
+
+    stages {
+        stage('build hxcpp for Haxe 3') {
+            steps {
+                echo 'build hxcpp for Haxe 3'
+                sh '''
+                    mkdir -p $TOOLING_BASE/hxcpp/hxcppHaxe3
+                    cd $TOOLING_BASE/hxcpp/hxcppHaxe3
+                    git clone https://github.com/HaxeFoundation/hxcpp.git .
+                    rm -rf bin project/cppia_bin
+
+                    cd project 
+                    lix scope create
+                    lix install haxe 3.4.7
+                    lix dev hxcpp ..
+                    echo "y" | haxe compile-cppia.hxml
+                '''
+            }
+        }
+
+        stage('build hxcpp for Haxe 4') {
+            steps {
+                echo 'build hxcpp for Haxe 4'
+                sh '''
+                    mkdir -p $TOOLING_BASE/hxcpp/hxcppHaxe4
+                    cd $TOOLING_BASE/hxcpp/hxcppHaxe4
+                    git clone https://github.com/HaxeFoundation/hxcpp.git .
+                    rm -rf bin project/cppia_bin
+
+                    cd project 
+                    lix scope create
+                    lix install haxe 4.0.5
+                    lix dev hxcpp ..
+                    echo "y" | haxe compile-cppia.hxml
+                '''
+            }
+        }
+
+        stage('build hxcpp for Haxe nightly') {
+            steps {
+                echo 'build hxcpp for Haxe nightly'
+                sh '''
+                    mkdir -p $TOOLING_BASE/hxcpp/hxcppHaxeNightly
+                    cd $TOOLING_BASE/hxcpp/hxcppHaxeNightly
+                    git clone https://github.com/HaxeFoundation/hxcpp.git .
+                    rm -rf bin project/cppia_bin
+
+                    cd project 
+                    lix scope create
+                    lix install haxe nightly
+                    lix dev hxcpp ..
+                    echo "y" | haxe compile-cppia.hxml
+                '''
+            }
+        }
+    }
+}
