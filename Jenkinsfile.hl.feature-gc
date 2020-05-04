@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                echo 'checkout HL feature/gc branch'
+                echo 'checkout HL Immix branch'
                 checkout([
                     $class: 'GitSCM', 
                     branches: [[name: '*/feature/gc']], 
@@ -25,18 +25,18 @@ pipeline {
 
         stage('compile') {
             steps {
-                echo 'compile HL feature/gc branch'
+                echo 'compile HL Immix branch'
                 sh '''
-                PREFIX=/home/tooling/hashlink/hashlink.feature-gc make
+                PREFIX=/home/tooling/hashlink/hashlink-immix make
                 '''
             }
         }
 
         stage('install') {
             steps {
-                echo 'install HL feature/gc branch'
+                echo 'install HL Immix branch'
                 sh '''
-                PREFIX=/home/tooling/hashlink/hashlink.feature-gc make install
+                PREFIX=/home/tooling/hashlink/hashlink-immix make install
                 '''
             }
         }
