@@ -43,7 +43,7 @@ pipeline {
 
                     cd project 
                     lix scope create
-                    lix install haxe 4.0.5
+                    lix install haxe 4.1.0
                     lix dev hxcpp ..
                     haxelib dev hxcpp ..
                     echo "y" | haxe compile-cppia.hxml
