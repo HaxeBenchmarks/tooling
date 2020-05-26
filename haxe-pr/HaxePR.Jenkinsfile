@@ -15,8 +15,8 @@ pipeline {
         OPAM_SWITCH_PREFIX = "$HOME/.opam/default"
         CAML_LD_LIBRARY_PATH = "$HOME/.opam/default/lib/stublibs:/usr/local/lib/ocaml/4.05.0/stublibs:/usr/lib/ocaml/stublibs"
         OCAML_TOPLEVEL_PATH = "$HOME/.opam/default/lib/toplevel"
-        GIT_BRANCH_MAP = "pull/${params.GITHUB_PR}/head:pr-${params.GITHUB_PR}"
-        GIT_BRANCH = "pr-${params.GITHUB_PR}"
+        HAXE_BRANCH_MAP = "pull/${params.GITHUB_PR}/head:pr-${params.GITHUB_PR}"
+        HAXE_BRANCH = "pr-${params.GITHUB_PR}"
     }
     stages {
         stage('checkout') {
@@ -25,8 +25,8 @@ pipeline {
                 rm -rf haxe
                 git clone https://github.com/HaxeFoundation/haxe.git
                 cd haxe
-                git fetch origin $GIT_BRANCH_MAP
-                git checkout $GIT_BRANCH
+                git fetch origin $HAXE_BRANCH_MAP
+                git checkout $HAXE_BRANCH
                 git submodule update --init --recursive
                 '''
             }
@@ -53,7 +53,7 @@ pipeline {
 
         stage('trigger benchmarks') {
             steps {
-                build job: 'Benchmarks/cases%2Fjson', parameters: [string(name: 'GITHUB_PR', value: env.GIT_BRANCH)], wait: false
+                build job: 'Benchmarks/cases%2Fjson', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH)], wait: false
             }
         }
     }
