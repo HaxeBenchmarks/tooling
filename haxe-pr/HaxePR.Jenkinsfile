@@ -53,7 +53,7 @@ pipeline {
 
         stage('trigger benchmarks') {
             steps {
-                build job: 'Benchmarks/cases%2Fjson', parameters: [string(name: 'GITHUB_PR', value: ${params.GITHUB_PR})], wait: false
+                build job: 'Benchmarks/cases%2Fjson', parameters: [string(name: 'GITHUB_PR', value: "${env.GIT_BRANCH}")], wait: false
             }
         }
     }
