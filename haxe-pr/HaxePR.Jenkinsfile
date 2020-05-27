@@ -17,6 +17,7 @@ pipeline {
         OCAML_TOPLEVEL_PATH = "$HOME/.opam/default/lib/toplevel"
         HAXE_BRANCH_MAP = "pull/${params.GITHUB_PR}/head:pr-${params.GITHUB_PR}"
         HAXE_BRANCH = "pr-${params.GITHUB_PR}"
+        ADD_REVISION = 1
     }
     stages {
         stage('checkout') {
