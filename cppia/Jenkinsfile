@@ -19,6 +19,9 @@ pipeline {
                     git checkout -- .
                     git pull
                     rm -rf bin project/cppia_bin
+                    lix scope create
+                    lix install haxe 4.3.0
+                    (cd tools/hxcpp; haxe compile.hxml)
 
                     cd project 
                     lix scope create
@@ -40,10 +43,13 @@ pipeline {
                     git checkout -- .
                     git pull
                     rm -rf bin project/cppia_bin
+                    lix scope create
+                    lix install haxe 4.3.0
+                    (cd tools/hxcpp; haxe compile.hxml)
 
                     cd project 
                     lix scope create
-                    lix install haxe 4.2.1
+                    lix install haxe 4.3.0
                     lix dev hxcpp ..
                     haxelib dev hxcpp ..
                     echo "y" | haxe compile-cppia.hxml
@@ -61,6 +67,9 @@ pipeline {
                     git checkout -- .
                     git pull
                     rm -rf bin project/cppia_bin
+                    lix scope create
+                    lix install haxe nightly
+                    (cd tools/hxcpp; haxe compile.hxml)
 
                     cd project 
                     lix scope create
