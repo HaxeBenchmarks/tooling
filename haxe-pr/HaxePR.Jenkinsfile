@@ -45,9 +45,10 @@ pipeline {
         stage('install Haxe') {
             steps {
                 sh '''
-                mkdir -p $INSTALL_DIR
+                rm -rf "$INSTALL_DIR"
+                mkdir -p "$INSTALL_DIR"
                 cd haxe
-                cp -va haxe haxelib std $INSTALL_DIR
+                cp -va haxe haxelib std "$INSTALL_DIR"
                 '''
             }
         }
