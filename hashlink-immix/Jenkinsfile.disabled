@@ -1,13 +1,13 @@
 pipeline {
-    agent none
+    agent any
     options {
         timeout(time: 10, unit: 'MINUTES')
         disableConcurrentBuilds()
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '5'))
     }
-    // triggers {
-    //     cron 'H H/6 * * *'
-    // }
+    triggers {
+        cron 'H H/6 * * *'
+    }
 
     stages {
         stage('checkout') {
