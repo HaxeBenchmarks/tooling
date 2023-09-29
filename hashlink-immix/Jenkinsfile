@@ -5,9 +5,9 @@ pipeline {
         disableConcurrentBuilds()
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '5'))
     }
-    triggers {
-        // cron 'H H/6 * * *'
-    }
+    // triggers {
+    //     cron 'H H/6 * * *'
+    // }
 
     stages {
         stage('checkout') {
