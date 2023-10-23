@@ -7,16 +7,16 @@ pipeline {
     }
 
     parameters {
-        string(name: 'GITHUB_PR', defaultValue: '', description: 'GitHub pull request to build')
+        string(name: 'GITHUB_BRANCH', defaultValue: '', description: 'GitHub branch to build')
     }
     environment {
-        INSTALL_DIR = "$HOME/haxe/versions/pr-${params.GITHUB_PR}"
+        INSTALL_DIR = "$HOME/haxe/versions/branch-${params.GITHUB_BRANCH}"
         PATH = "$PATH:$HOME/haxe/neko:$HOME/.opam/default/bin"
         OPAM_SWITCH_PREFIX = "$HOME/.opam/default"
         CAML_LD_LIBRARY_PATH = "$HOME/.opam/default/lib/stublibs:/usr/local/lib/ocaml/4.05.0/stublibs:/usr/lib/ocaml/stublibs"
         OCAML_TOPLEVEL_PATH = "$HOME/.opam/default/lib/toplevel"
-        HAXE_BRANCH_MAP = "pull/${params.GITHUB_PR}/head:pr-${params.GITHUB_PR}"
-        HAXE_BRANCH = "pr-${params.GITHUB_PR}"
+        HAXE_BRANCH_MAP = "${params.GITHUB_BRANCH}:branch-${params.GITHUB_BRANCH}"
+        HAXE_BRANCH = "branch-${params.GITHUB_BRANCH}"
         ADD_REVISION = 1
     }
     stages {
@@ -32,7 +32,7 @@ pipeline {
                 '''
             }
         }
-        stage('build Haxe PR') {
+        stage('build Haxe Branch') {
             steps {
                 sh '''
                 cd haxe 
