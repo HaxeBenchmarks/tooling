@@ -18,7 +18,9 @@ pipeline {
         HAXE_BRANCH_MAP = "pull/${params.GITHUB_PR}/head:pr-${params.GITHUB_PR}"
         HAXE_BRANCH = "pr-${params.GITHUB_PR}"
         ADD_REVISION = 1
+        HXB_ENABLED = 0
     }
+
     stages {
         stage('checkout') {
             steps {
@@ -41,7 +43,7 @@ pipeline {
                 '''
             }
         }
-                
+
         stage('install Haxe') {
             steps {
                 sh '''
@@ -52,25 +54,28 @@ pipeline {
                 '''
             }
         }
+        stage('check for hxb support') {
+            steps {
+                script {
+                    env.HXB_ENABLED = sh(script:'cd haxe; ./haxe --help | grep -c "hxb-lib"', returnStdout: true).trim()
+                }
+            }
+        }
 
         stage('trigger benchmarks') {
             steps {
-                build(job: 'Benchmark_bcrypt', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH)], wait: false)
-                build(job: 'Benchmark_binarytrees', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH)], wait: false)
-                build(job: 'Benchmark_dox', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH)], wait: false)
-                build(job: 'Benchmark_formatter', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH)], wait: false)
-                build(job: 'Benchmark_json', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH)], wait: false)
-                build(job: 'Benchmark_mandelbrot', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH)], wait: false)
-                build(job: 'Benchmark_mandelbrot_anon_objects', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH)], wait: false)
-                build(job: 'Benchmark_nbody', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH)], wait: false)
-                build(job: 'Benchmark_sha256', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH)], wait: false)
-                build(job: 'Benchmark_sha512', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH)], wait: false)
-                build(job: 'Benchmark_alloc', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH)], wait: false)
-            }
-        }
-        stage('trigger benchmarks 2') {
-            steps {
-                build(job: 'Benchmark_formatter_noio', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH)], wait: false)
+                build(job: 'Benchmark_bcrypt', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH), string(name: 'HXB_ENABLED', value: env.HXB_ENABLED)], wait: false)
+                build(job: 'Benchmark_binarytrees', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH), string(name: 'HXB_ENABLED', value: env.HXB_ENABLED)], wait: false)
+                build(job: 'Benchmark_dox', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH), string(name: 'HXB_ENABLED', value: env.HXB_ENABLED)], wait: false)
+                build(job: 'Benchmark_formatter', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH), string(name: 'HXB_ENABLED', value: env.HXB_ENABLED)], wait: false)
+                build(job: 'Benchmark_formatter_noio', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH), string(name: 'HXB_ENABLED', value: env.HXB_ENABLED)], wait: false)
+                build(job: 'Benchmark_json', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH), string(name: 'HXB_ENABLED', value: env.HXB_ENABLED)], wait: false)
+                build(job: 'Benchmark_mandelbrot', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH), string(name: 'HXB_ENABLED', value: env.HXB_ENABLED)], wait: false)
+                build(job: 'Benchmark_mandelbrot_anon_objects', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH), string(name: 'HXB_ENABLED', value: env.HXB_ENABLED)], wait: false)
+                build(job: 'Benchmark_nbody', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH), string(name: 'HXB_ENABLED', value: env.HXB_ENABLED)], wait: false)
+                build(job: 'Benchmark_sha256', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH), string(name: 'HXB_ENABLED', value: env.HXB_ENABLED)], wait: false)
+                build(job: 'Benchmark_sha512', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH), string(name: 'HXB_ENABLED', value: env.HXB_ENABLED)], wait: false)
+                build(job: 'Benchmark_alloc', parameters: [string(name: 'HAXE_BRANCH', value: env.HAXE_BRANCH), string(name: 'HXB_ENABLED', value: env.HXB_ENABLED)], wait: false)
             }
         }
     }
