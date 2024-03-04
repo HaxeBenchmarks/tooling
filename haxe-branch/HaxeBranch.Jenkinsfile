@@ -57,7 +57,7 @@ pipeline {
         stage('check for hxb support') {
             steps {
                 script {
-                    env.HXB_ENABLED = sh(script:'cd haxe; ./haxe --help | grep -c "hxb-lib"', returnStdout: true).trim()
+                    env.HXB_ENABLED = sh(script:'cd haxe; ./haxe --help | grep -c "hxb-lib" || true', returnStdout: true).trim()
                 }
             }
         }
