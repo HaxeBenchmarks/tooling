@@ -11,7 +11,7 @@ pipeline {
     }
     environment {
         UNSAFE_HAXE_BRANCH = "pr-${params.GITHUB_BRANCH}"
-        HAXE_BRANCH = "${UNSAFE_HAXE_BRANCH/\//-}"
+        HAXE_BRANCH = "${UNSAFE_HAXE_BRANCH//[^a-zA-Z0-9_-]/_}"
         INSTALL_DIR = "$HOME/haxe/versions/${HAXE_BRANCH}"
         PATH = "$PATH:$HOME/haxe/neko:$HOME/.opam/default/bin"
         OPAM_SWITCH_PREFIX = "$HOME/.opam/default"
