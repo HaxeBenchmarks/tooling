@@ -20,7 +20,6 @@ pipeline {
         C_INCLUDE_PATH="$HOME/haxe/neko/include"
         HAXE_BRANCH_MAP = "${params.GITHUB_BRANCH}:${HAXE_BRANCH}"
         ADD_REVISION = 1
-        HXB_ENABLED = 0
     }
 
     stages {
