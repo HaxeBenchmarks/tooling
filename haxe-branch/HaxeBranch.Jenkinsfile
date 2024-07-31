@@ -10,14 +10,15 @@ pipeline {
         string(name: 'GITHUB_BRANCH', defaultValue: '', description: 'GitHub branch to build')
     }
     environment {
-        INSTALL_DIR = "$HOME/haxe/versions/branch-${params.GITHUB_BRANCH}"
+        UNSAFE_HAXE_BRANCH = "branch-${params.GITHUB_BRANCH}"
+        HAXE_BRANCH = "${UNSAFE_HAXE_BRANCH/\//-}"
+        INSTALL_DIR = "$HOME/haxe/versions/${HAXE_BRANCH}"
         PATH = "$PATH:$HOME/haxe/neko:$HOME/.opam/default/bin"
         OPAM_SWITCH_PREFIX = "$HOME/.opam/default"
         CAML_LD_LIBRARY_PATH = "$HOME/.opam/default/lib/stublibs:/usr/local/lib/ocaml/4.05.0/stublibs:/usr/lib/ocaml/stublibs"
         OCAML_TOPLEVEL_PATH = "$HOME/.opam/default/lib/toplevel"
         C_INCLUDE_PATH="$HOME/haxe/neko/include"
-        HAXE_BRANCH_MAP = "${params.GITHUB_BRANCH}:branch-${params.GITHUB_BRANCH}"
-        HAXE_BRANCH = "branch-${params.GITHUB_BRANCH}"
+        HAXE_BRANCH_MAP = "${params.GITHUB_BRANCH}:${HAXE_BRANCH}"
         ADD_REVISION = 1
         HXB_ENABLED = 0
     }

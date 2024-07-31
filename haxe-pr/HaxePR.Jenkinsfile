@@ -10,14 +10,15 @@ pipeline {
         string(name: 'GITHUB_PR', defaultValue: '', description: 'GitHub pull request to build')
     }
     environment {
-        INSTALL_DIR = "$HOME/haxe/versions/pr-${params.GITHUB_PR}"
+        UNSAFE_HAXE_BRANCH = "pr-${params.GITHUB_BRANCH}"
+        HAXE_BRANCH = "${UNSAFE_HAXE_BRANCH/\//-}"
+        INSTALL_DIR = "$HOME/haxe/versions/${HAXE_BRANCH}"
         PATH = "$PATH:$HOME/haxe/neko:$HOME/.opam/default/bin"
         OPAM_SWITCH_PREFIX = "$HOME/.opam/default"
         CAML_LD_LIBRARY_PATH = "$HOME/.opam/default/lib/stublibs:/usr/local/lib/ocaml/4.05.0/stublibs:/usr/lib/ocaml/stublibs"
         OCAML_TOPLEVEL_PATH = "$HOME/.opam/default/lib/toplevel"
         C_INCLUDE_PATH="$HOME/haxe/neko/include"
-        HAXE_BRANCH_MAP = "pull/${params.GITHUB_PR}/head:pr-${params.GITHUB_PR}"
-        HAXE_BRANCH = "pr-${params.GITHUB_PR}"
+        HAXE_BRANCH_MAP = "pull/${params.GITHUB_PR}/head:${HAXE_BRANCH}"
         ADD_REVISION = 1
         HXB_ENABLED = 0
     }
