@@ -11,10 +11,7 @@ pipeline {
     }
     environment {
         UNSAFE_HAXE_BRANCH = "pr-${params.GITHUB_BRANCH}"
-        HAXE_BRANCH = """${sh(
-                returnStdout: true,
-                script: 'LC_COLLATE=C sed "s/[^a-zA-Z0-9_-]+/_/g" <<< "$UNSAFE_HAXE_BRANCH"'
-            ).trim()}"""
+        HAXE_BRANCH = UNSAFE_HAXE_BRANCH.replaceAll('[^a-zA-Z0-9_-]', '_')
         INSTALL_DIR = "$HOME/haxe/versions/${HAXE_BRANCH}"
         PATH = "$PATH:$HOME/haxe/neko:$HOME/.opam/default/bin"
         OPAM_SWITCH_PREFIX = "$HOME/.opam/default"
