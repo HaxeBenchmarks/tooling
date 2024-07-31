@@ -15,6 +15,7 @@ pipeline {
         OPAM_SWITCH_PREFIX = "$HOME/.opam/default"
         CAML_LD_LIBRARY_PATH = "$HOME/.opam/default/lib/stublibs:/usr/local/lib/ocaml/4.05.0/stublibs:/usr/lib/ocaml/stublibs"
         OCAML_TOPLEVEL_PATH = "$HOME/.opam/default/lib/toplevel"
+        C_INCLUDE_PATH="$HOME/haxe/neko/include"
         HAXE_BRANCH_MAP = "${params.GITHUB_BRANCH}:branch-${params.GITHUB_BRANCH}"
         HAXE_BRANCH = "branch-${params.GITHUB_BRANCH}"
         ADD_REVISION = 1
