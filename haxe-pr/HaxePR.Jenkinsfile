@@ -10,7 +10,7 @@ pipeline {
         string(name: 'GITHUB_PR', defaultValue: '', description: 'GitHub pull request to build')
     }
     environment {
-        UNSAFE_HAXE_BRANCH = "pr-${params.GITHUB_BRANCH}"
+        UNSAFE_HAXE_BRANCH = "pr-${params.GITHUB_PR}"
         HAXE_BRANCH = UNSAFE_HAXE_BRANCH.replaceAll('[^a-zA-Z0-9_-]', '_')
         INSTALL_DIR = "$HOME/haxe/versions/${HAXE_BRANCH}"
         PATH = "$PATH:$HOME/haxe/neko:$HOME/.opam/default/bin"
