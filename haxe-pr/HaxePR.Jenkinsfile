@@ -35,6 +35,15 @@ pipeline {
                 '''
             }
         }
+        stage('opam install') {
+            steps {
+                sh '''
+                cd haxe
+                opam pin add haxe . --kind=path --no-action
+                opam install haxe --deps-only -y
+                '''
+            }
+        }
         stage('build Haxe PR') {
             steps {
                 sh '''
