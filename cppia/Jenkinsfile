@@ -45,12 +45,36 @@ pipeline {
                     git pull
                     rm -rf bin project/cppia_bin
                     lix scope create
-                    lix install haxe 4.3.3
+                    lix install haxe 4.3.7
                     (cd tools/hxcpp; haxe compile.hxml)
 
                     cd project 
                     lix scope create
-                    lix install haxe 4.3.3
+                    lix install haxe 4.3.7
+                    lix dev hxcpp ..
+                    haxelib dev hxcpp ..
+                    echo "y" | haxe compile-cppia.hxml
+                '''
+            }
+        }
+
+        stage('build hxcpp for Haxe 5') {
+            steps {
+                echo 'build hxcpp for Haxe 5'
+                sh '''
+                    mkdir -p $TOOLING_BASE/hxcpp/hxcppHaxe5
+                    cd $TOOLING_BASE/hxcpp/hxcppHaxe5
+                    # git clone https://github.com/HaxeFoundation/hxcpp.git .
+                    git checkout -- .
+                    git pull
+                    rm -rf bin project/cppia_bin
+                    lix scope create
+                    lix install haxe 5.0.0-preview.1
+                    (cd tools/hxcpp; haxe compile.hxml)
+
+                    cd project 
+                    lix scope create
+                    lix install haxe 5.0.0-preview.1
                     lix dev hxcpp ..
                     haxelib dev hxcpp ..
                     echo "y" | haxe compile-cppia.hxml
