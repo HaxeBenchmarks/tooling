@@ -58,9 +58,7 @@ pipeline {
             }
         }
 
-        stage('build hxcpp for Haxe 5') {
-            Utils.markStageSkippedForConditional(STAGE_NAME)
-
+//         stage('build hxcpp for Haxe 5') {
 //             steps {
 //                 echo 'build hxcpp for Haxe 5'
 //                 sh '''
@@ -82,7 +80,7 @@ pipeline {
 //                     echo "y" | haxe compile-cppia.hxml
 //                 '''
 //             }
-        }
+//         }
 
         stage('build hxcpp for Haxe 3') {
             steps {
