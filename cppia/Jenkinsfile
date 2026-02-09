@@ -10,30 +10,30 @@ pipeline {
     }
 
     stages {
-        stage('build hxcpp for Haxe 3') {
+        stage('build hxcpp for Haxe nightly') {
             steps {
-                echo 'build hxcpp for Haxe 3'
+                echo 'build hxcpp for Haxe nightly'
                 sh '''
-                    mkdir -p $TOOLING_BASE/hxcpp/hxcppHaxe3
-                    cd $TOOLING_BASE/hxcpp/hxcppHaxe3
+                    mkdir -p $TOOLING_BASE/hxcpp/hxcppHaxeNightly
+                    cd $TOOLING_BASE/hxcpp/hxcppHaxeNightly
                     # git clone https://github.com/HaxeFoundation/hxcpp.git .
                     git checkout -- .
                     git pull
                     rm -rf bin project/cppia_bin
                     lix scope create
-                    lix install haxe 4.3.3
+                    lix install haxe nightly
                     (cd tools/hxcpp; haxe compile.hxml)
 
                     cd project 
                     lix scope create
-                    lix install haxe 3.4.7
+                    lix install haxe nightly
                     lix dev hxcpp ..
                     haxelib dev hxcpp ..
                     echo "y" | haxe compile-cppia.hxml
                 '''
             }
         }
-
+    
         stage('build hxcpp for Haxe 4') {
             steps {
                 echo 'build hxcpp for Haxe 4'
@@ -82,26 +82,26 @@ pipeline {
             }
         }
 
-        stage('build hxcpp for Haxe nightly') {
+        stage('build hxcpp for Haxe 3') {
             steps {
-                echo 'build hxcpp for Haxe nightly'
+                echo 'build hxcpp for Haxe 3'
                 sh '''
-                    mkdir -p $TOOLING_BASE/hxcpp/hxcppHaxeNightly
-                    cd $TOOLING_BASE/hxcpp/hxcppHaxeNightly
+                    mkdir -p $TOOLING_BASE/hxcpp/hxcppHaxe3
+                    cd $TOOLING_BASE/hxcpp/hxcppHaxe3
                     # git clone https://github.com/HaxeFoundation/hxcpp.git .
                     git checkout -- .
                     git pull
                     rm -rf bin project/cppia_bin
                     lix scope create
-                    lix install haxe nightly
+                    lix install haxe 4.3.3
                     (cd tools/hxcpp; haxe compile.hxml)
 
                     cd project 
                     lix scope create
-                    lix install haxe nightly
+                    lix install haxe 3.4.7
                     lix dev hxcpp ..
                     haxelib dev hxcpp ..
-                    echo "y" |  haxe compile-cppia.hxml
+                    echo "y" | haxe compile-cppia.hxml
                 '''
             }
         }
